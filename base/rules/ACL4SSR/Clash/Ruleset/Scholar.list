@@ -48,7 +48,6 @@ DOMAIN-SUFFIX,ovid.com
 DOMAIN-SUFFIX,oxfordartonline.com
 DOMAIN-SUFFIX,oxfordbibliographies.com
 DOMAIN-SUFFIX,oxfordmusiconline.com
-DOMAIN-SUFFIX,pkulaw.com
 DOMAIN-SUFFIX,pnas.org
 DOMAIN-SUFFIX,proquest.com
 DOMAIN-SUFFIX,readcube.com
@@ -73,3 +72,8 @@ DOMAIN-SUFFIX,westlawchina.com
 DOMAIN-SUFFIX,wiley.com
 DOMAIN-SUFFIX,worldbank.org
 DOMAIN-SUFFIX,worldscientific.com
+DOMAIN-SUFFIX,webofscience.com
+DOMAIN-SUFFIX,serialssolutions.com
+DOMAIN-SUFFIX,taylorfrancis.com
+DOMAIN-SUFFIX,degruyter.com
+DOMAIN-SUFFIX,gale.com
