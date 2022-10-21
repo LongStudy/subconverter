@@ -26,9 +26,5 @@ DOMAIN-SUFFIX,icsr.wiki
 DOMAIN-SUFFIX,zjusec.com
 # SUSTech 内网
 DOMAIN-SUFFIX,cra.moe
-DOMAIN-SUFFIX,ax9000.studylong.win
-DOMAIN-SUFFIX,mi3pro.studylong.win
-DOMAIN-SUFFIX,raspberrypi.studylong.win
-DOMAIN-SUFFIX,mir4a.studylong.win
-DOMAIN-SUFFIX,station.studylong.win
+DOMAIN-SUFFIX,lan.227520.xyz
 DOMAIN-SUFFIX,sustech.edu.cn
