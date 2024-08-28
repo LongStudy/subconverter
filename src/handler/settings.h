@@ -3,16 +3,16 @@
 
 #include <string>
 
-#include "../config/crontask.h"
-#include "../config/regmatch.h"
-#include "../config/proxygroup.h"
-#include "../config/ruleset.h"
-#include "../generator/config/ruleconvert.h"
-#include "../generator/template/templates.h"
-#include "../utils/logger.h"
-#include "../utils/string.h"
-#include "../utils/stl_extra.h"
-#include "../utils/tribool.h"
+#include "config/crontask.h"
+#include "config/regmatch.h"
+#include "config/proxygroup.h"
+#include "config/ruleset.h"
+#include "generator/config/ruleconvert.h"
+#include "generator/template/templates.h"
+#include "utils/logger.h"
+#include "utils/string.h"
+#include "utils/stl_extra.h"
+#include "utils/tribool.h"
 
 struct Settings
 {
@@ -42,12 +42,13 @@ struct Settings
     std::string generateProfiles;
 
     //preferences
+    bool reloadConfOnRequest = false;
     RegexMatchConfigs renames, emojis;
     bool addEmoji = false, removeEmoji = false, appendType = false, filterDeprecated = true;
     tribool UDPFlag, TFOFlag, skipCertVerify, TLS13Flag, enableInsert;
     bool enableSort = false, updateStrict = false;
     bool clashUseNewField = false, singBoxAddClashModes = true;
-    std::string clashProxiesStyle = "flow";
+    std::string clashProxiesStyle = "flow", clashProxyGroupsStyle = "block";
     std::string proxyConfig, proxyRuleset, proxySubscription;
     int updateInterval = 0;
     std::string sortScript, filterScript;

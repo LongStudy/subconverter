@@ -2,12 +2,12 @@
 #include <mutex>
 #include <toml.hpp>
 
-#include "../config/binding.h"
-#include "../handler/webget.h"
-#include "../script/cron.h"
-#include "../server/webserver.h"
-#include "../utils/logger.h"
-#include "../utils/network.h"
+#include "config/binding.h"
+#include "handler/webget.h"
+#include "script/cron.h"
+#include "server/webserver.h"
+#include "utils/logger.h"
+#include "utils/network.h"
 #include "interfaces.h"
 #include "multithread.h"
 #include "settings.h"
@@ -338,6 +338,7 @@ void readYAMLConf(YAML::Node &node)
     section["proxy_config"] >> global.proxyConfig;
     section["proxy_ruleset"] >> global.proxyRuleset;
     section["proxy_subscription"] >> global.proxySubscription;
+    section["reload_conf_on_request"] >> global.reloadConfOnRequest;
 
     if(node["userinfo"].IsDefined())
     {
@@ -376,6 +377,7 @@ void readYAMLConf(YAML::Node &node)
         section["append_sub_userinfo"] >> global.appendUserinfo;
         section["clash_use_new_field_name"] >> global.clashUseNewField;
         section["clash_proxies_style"] >> global.clashProxiesStyle;
+        section["clash_proxy_groups_style"] >> global.clashProxyGroupsStyle;
         section["singbox_add_clash_modes"] >> global.singBoxAddClashModes;
     }
 
@@ -612,7 +614,8 @@ void readTOMLConf(toml::value &root)
                   "proxy_config", global.proxyConfig,
                   "proxy_ruleset", global.proxyRuleset,
                   "proxy_subscription", global.proxySubscription,
-                  "append_proxy_type", global.appendType
+                  "append_proxy_type", global.appendType,
+                  "reload_conf_on_request", global.reloadConfOnRequest
     );
 
     if(filter)
@@ -636,6 +639,7 @@ void readTOMLConf(toml::value &root)
                   "append_sub_userinfo", global.appendUserinfo,
                   "clash_use_new_field_name", global.clashUseNewField,
                   "clash_proxies_style", global.clashProxiesStyle,
+                  "clash_proxy_groups_style", global.clashProxyGroupsStyle,
                   "singbox_add_clash_modes", global.singBoxAddClashModes
     );
 
@@ -854,6 +858,7 @@ void readConf()
     ini.get_if_exist("proxy_config", global.proxyConfig);
     ini.get_if_exist("proxy_ruleset", global.proxyRuleset);
     ini.get_if_exist("proxy_subscription", global.proxySubscription);
+    ini.get_bool_if_exist("reload_conf_on_request", global.reloadConfOnRequest);
 
     if(ini.section_exist("surge_external_proxy"))
     {
@@ -880,6 +885,7 @@ void readConf()
         ini.get_bool_if_exist("append_sub_userinfo", global.appendUserinfo);
         ini.get_bool_if_exist("clash_use_new_field_name", global.clashUseNewField);
         ini.get_if_exist("clash_proxies_style", global.clashProxiesStyle);
+        ini.get_if_exist("clash_proxy_groups_style", global.clashProxyGroupsStyle);
         ini.get_bool_if_exist("singbox_add_clash_modes", global.singBoxAddClashModes);
         if(ini.item_prefix_exist("rename_node"))
         {
@@ -1164,7 +1170,7 @@ int loadExternalTOML(toml::value &root, ExternalConfig &ext)
                   "exclude_remarks", ext.exclude
     );
 
-    if(ext.tpl_args != nullptr) operate_toml_kv_table(toml::find_or<std::vector<toml::table>>(section, "template_args", {}), "key", "value",
+    if(ext.tpl_args != nullptr) operate_toml_kv_table(toml::find_or<std::vector<toml::table>>(root, "template_args", {}), "key", "value",
                                                       [&](const toml::value &key, const toml::value &value)
     {
         std::string val = toml::format(value);
